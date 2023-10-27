@@ -244,54 +244,141 @@
 // // slice at the same index. The cost of a message is the length of
 // // the message multiplied by 0.01.
 
+// package main
+
+// import "fmt"
+
+// func getMessageCosts(messages []string) []float64 {
+// 	messageCosts := make([]float64, len(messages))
+// 	for i := 0; i < len(messages); i++ {
+// 		cost := float64(len(messages[i])) * 0.01
+// 		messageCosts[i] = cost
+// 	}
+// 	return messageCosts
+// }
+
+// func test(messages []string) {
+// 	costs := getMessageCosts(message)
+// 	fmt.Println("Messages:")
+// 	for i := 0; i < len(messages); i++ {
+// 		fmt.Printf(" - %v\n", messages[i])
+// 	}
+// 	fmt.Println("Costs:")
+// 	for i := 0; i < len(costs); i++ {
+// 		fmt.Printf(" - %.2f\n", costs[i])
+// 	}
+// 	fmt.Println("==== END REPORT =====")
+// }
+
+// func main() {
+// 	test([]string{
+// 		"Welcome to the movies!",
+// 		"Enjoy your popcorn!",
+// 		"Please don't talk during the movie!",
+// 	})
+// 	test([]string{
+// 		"I don't want to be here anymore",
+// 		"Can we go home?",
+// 		"I'm hungry",
+// 		"I'm bored",
+// 	})
+// 	test([]string{
+// 		"Hello",
+// 		"Hi",
+// 		"Hey",
+// 		"Hi there",
+// 		"Hey there",
+// 		"Hi there",
+// 		"Hello there",
+// 		"Hey there",
+// 		"Hello there",
+// 		"General Kenobi",
+// 	})
+// }
+
+//// 2023/10/27 // 20:57
+
+// //// Variadic
+
+// // Many function, especially those in the standard library, can take an
+// // arbitrary number of final arguments. This is accomplished by using
+// // the "..." syntax in the function signature.
+
+// // A variadic function receives the variadic arguments as a slice.
+// func sum(nums ...int) int {
+// 	// nums is just a slice
+// 	for i := 0; i < len(nums); i++ {
+// 		num := nums[i]
+// 	}
+// }
+
+// func main() {
+// 	total := sum(1, 2, 3)
+// 	fmt.Println(total)
+// 	// prints "6"
+// }
+
+// // The familiar fmt.Println() and fmt.Sprintf() are variadic!
+// // fmt.Println() prints each element with space delimiters and a
+// // newline at the end.
+// func Println(a ...interface{}) (n int, err error)
+
+// //// Spread operator
+
+// // The spread operator allows us to pass a slice into a variadic function.
+// // The spread operator consists of three dots following the slice in the
+// // function call.
+// func printStrings(strings ...string) {
+// 	for i := 0; i < len(strings); i++ {
+// 		fmt.Println(strings[i])
+// 	}
+// }
+
+// func main() {
+// 	names := []string{"bob", "sue", "alice"}
+// 	printStrings(names...)
+// }
+
+//// Assignment
+
+// We need to sum up the costs of all individual messages so we can
+// send an end-of-month bill to our customers.
+
+// Complete the sum function so that returns the sum of all of its
+// inputs.
+
+// Note
+
+// Make note of how the variadic inputs and the spread operator are
+// used in the test suite.
+
 package main
 
 import "fmt"
 
-func getMessageCosts(messages []string) []float64 {
-	messageCosts := make([]float64, len(messages))
-	for i := 0; i < len(messages); i++ {
-		cost := float64(len(messages[i])) * 0.01
-		messageCosts[i] = cost
+func sum(nums ...float64) float64 {
+	sum := 0.0
+	for i := 0; i < len(nums); i++ {
+		num := nums[i]
+		sum += num
 	}
-	return messageCosts
+	return sum
 }
 
-func test(messages []string) {
-	costs := getMessageCosts(message)
-	fmt.Println("Messages:")
-	for i := 0; i < len(messages); i++ {
-		fmt.Printf(" - %v\n", messages[i])
-	}
-	fmt.Println("Costs:")
-	for i := 0; i < len(costs); i++ {
-		fmt.Printf(" - %.2f\n", costs[i])
-	}
-	fmt.Println("==== END REPORT =====")
+// don't edit below this line
+
+func test(nums ...float64) {
+	total := sum(nums...)
+	fmt.Printf("Summing %v costs...\n", len(nums))
+	fmt.Printf("Bill for the month: %.2f\n", total)
+	fmt.Println("===== END REPORT =====")
 }
 
 func main() {
-	test([]string{
-		"Welcome to the movies!",
-		"Enjoy your popcorn!",
-		"Please don't talk during the movie!",
-	})
-	test([]string{
-		"I don't want to be here anymore",
-		"Can we go home?",
-		"I'm hungry",
-		"I'm bored",
-	})
-	test([]string{
-		"Hello",
-		"Hi",
-		"Hey",
-		"Hi there",
-		"Hey there",
-		"Hi there",
-		"Hello there",
-		"Hey there",
-		"Hello there",
-		"General Kenobi",
-	})
+	test(1.0, 2.0, 3.0)
+	test(1.0, 2.0, 3.0, 4.0, 5.0)
+	test(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0)
+	test(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0)
 }
+
+////
